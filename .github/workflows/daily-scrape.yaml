@@ -1,0 +1,46 @@
+name: Daily Danbooru Scraper
+
+# Triggers the workflow every day at midnight UTC
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  # Allows you to run it manually from the GitHub Actions tab
+  workflow_dispatch:
+
+# Set permissions to allow writing to the repository
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the repository code
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }} # Passes the token to allow pushing
+
+    # Step 2: Set up Python
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    # Step 3: Install required libraries
+    - name: Install dependencies
+      run: pip install requests
+
+    # Step 4: Configure Git
+    # The script runs 'git commit', which needs a user email and name set
+    - name: Configure Git
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        # IMPORTANT: This tells git to use the token for authentication so 'git push' works
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+    # Step 5: Run your script
+    - name: Run scraper
+      run: python scrape_tags.py
