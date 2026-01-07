@@ -68,19 +68,29 @@ def export_json(filename="tag_stats.json"):
         new_filename = files[i]
         old_filename = files[i-1]
         
-        # Extract a "Date" string from the filename for display
-        # (Removes extension and 'tags' prefix if present)
-        display_date = os.path.splitext(new_filename)[0].replace('tags_', '').replace('tags-', '')
+        # Helper to clean the filename for display
+        # 1. Remove .csv extension
+        # 2. (Optional) remove specific prefixes like 'tags_' if you use them
+        def get_display_name(f):
+            name = os.path.splitext(f)[0]
+            # Uncomment the line below if your files have a 'tags_' prefix you want to hide
+            # name = name.replace('tags_', '')
+            return name
+
+        new_name = get_display_name(new_filename)
+        old_name = get_display_name(old_filename)
+        
+        # Create the range label, e.g., "2026-01-05 to 2026-01-06"
+        range_label = f"{old_name} to {new_name}"
 
         # Calculate data for this specific pair
-        data_entry = {'date': display_date, 'id': new_filename, 'stats': {}}
+        data_entry = {'date': range_label, 'id': new_filename, 'stats': {}}
         
         types_to_process = list(TAG_TYPES.keys()) + ['all']
         
         for t_type in types_to_process:
             type_id = None if t_type == 'all' else TAG_TYPES[t_type]
             
-            # Only read specific tags needed for this entry to save memory
             old_tags = read_tags(os.path.join(TAGS_DIR, old_filename), type_id)
             new_tags = read_tags(os.path.join(TAGS_DIR, new_filename), type_id)
             

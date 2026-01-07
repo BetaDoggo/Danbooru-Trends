@@ -1,0 +1,33 @@
+name: Update Tag Stats
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'tags/**'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+        
+    - name: Generate JSON
+      run: python compare_last_two.py --json
+      
+    - name: Commit JSON
+      run: |
+        git config user.name "GitHub Actions Bot"
+        git config user.email "actions@github.com"
+        git add tag_stats.json
+        git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update tag_stats.json"
+        git push
