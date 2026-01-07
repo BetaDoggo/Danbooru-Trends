@@ -2,7 +2,6 @@ import csv
 import os
 import argparse
 import json
-from datetime import datetime
 
 TAGS_DIR = "tags"
 MIN_COUNT_THRESHOLD = 50
@@ -15,13 +14,25 @@ TAG_TYPES = {
     'character': 4
 }
 
+def get_touhou_tags(filename="touhous.txt"):
+    """Reads the list of Touhou tags from a text file."""
+    tags = set()
+    if os.path.exists(filename):
+        with open(filename, 'r', encoding='utf-8') as f:
+            for line in f:
+                tag = line.strip()
+                if tag:
+                    tags.add(tag)
+    else:
+        print(f"Warning: '{filename}' not found. Touhou category will be empty.")
+    return tags
+
 def get_sorted_files(directory):
-    # Get all CSV files and sort them ascending (oldest to newest)
     # We assume filenames contain dates or sortable numbers
     files = sorted([f for f in os.listdir(directory) if f.endswith('.csv')])
     return files
 
-def read_tags(filepath, tag_type_id=None):
+def read_tags(filepath, tag_type_id=None, allowed_tags=None):
     tags = {}
     try:
         with open(filepath, mode='r', encoding='utf-8') as file:
@@ -31,6 +42,11 @@ def read_tags(filepath, tag_type_id=None):
                     if tag_type_id is not None:
                         if int(row[1]) != tag_type_id:
                             continue
+                    
+                    if allowed_tags is not None:
+                        if row[0] not in allowed_tags:
+                            continue
+
                     tags[row[0]] = int(row[2])
                 except (IndexError, ValueError):
                     continue
@@ -56,6 +72,7 @@ def calculate_growth(old_tags, new_tags):
 
 def export_json(filename="tag_stats.json"):
     files = get_sorted_files(TAGS_DIR)
+    touhou_whitelist = get_touhou_tags()
     
     if len(files) < 2:
         print("Not enough files to generate JSON.")
@@ -63,36 +80,36 @@ def export_json(filename="tag_stats.json"):
 
     comparisons = []
     
-    # Iterate through files comparing index i with index i-1
     for i in range(1, len(files)):
         new_filename = files[i]
         old_filename = files[i-1]
         
-        # Helper to clean the filename for display
-        # 1. Remove .csv extension
-        # 2. (Optional) remove specific prefixes like 'tags_' if you use them
         def get_display_name(f):
             name = os.path.splitext(f)[0]
-            # Uncomment the line below if your files have a 'tags_' prefix you want to hide
-            # name = name.replace('tags_', '')
             return name
 
         new_name = get_display_name(new_filename)
         old_name = get_display_name(old_filename)
         
-        # Create the range label, e.g., "2026-01-05 to 2026-01-06"
         range_label = f"{old_name} to {new_name}"
-
-        # Calculate data for this specific pair
         data_entry = {'date': range_label, 'id': new_filename, 'stats': {}}
         
-        types_to_process = list(TAG_TYPES.keys()) + ['all']
+        types_to_process = list(TAG_TYPES.keys()) + ['all', 'touhou']
         
         for t_type in types_to_process:
-            type_id = None if t_type == 'all' else TAG_TYPES[t_type]
+            type_id = None
+            allowed = None
             
-            old_tags = read_tags(os.path.join(TAGS_DIR, old_filename), type_id)
-            new_tags = read_tags(os.path.join(TAGS_DIR, new_filename), type_id)
+            if t_type == 'all':
+                type_id = None
+            elif t_type == 'touhou':
+                # Touhou filter uses the whitelist, not a specific tag type ID
+                allowed = touhou_whitelist
+            else:
+                type_id = TAG_TYPES[t_type]
+            
+            old_tags = read_tags(os.path.join(TAGS_DIR, old_filename), type_id, allowed)
+            new_tags = read_tags(os.path.join(TAGS_DIR, new_filename), type_id, allowed)
             
             raw_growth = calculate_growth(old_tags, new_tags)
             
@@ -113,7 +130,7 @@ def export_json(filename="tag_stats.json"):
 def main():
     parser = argparse.ArgumentParser(description="Compare tag stats between CSV files.")
     parser.add_argument("--sort", choices=['percent', 'diff'], default='percent', help="Sort metric")
-    parser.add_argument("--type", choices=list(TAG_TYPES.keys()) + ['all'], default='all', help="Tag type filter")
+    parser.add_argument("--type", choices=list(TAG_TYPES.keys()) + ['all', 'touhou'], default='all', help="Tag type filter")
     parser.add_argument("--json", action="store_true", help="Generate JSON for web.")
     
     args = parser.parse_args()
@@ -132,12 +149,20 @@ def main():
         print("Need at least 2 files to compare.")
         return
 
-    # Use the last two files for CLI
     old_file, new_file = files[-2], files[-1]
     
-    type_id = None if args.type == 'all' else TAG_TYPES[args.type]
-    old_tags = read_tags(os.path.join(TAGS_DIR, old_file), type_id)
-    new_tags = read_tags(os.path.join(TAGS_DIR, new_file), type_id)
+    type_id = None
+    allowed_tags = None
+
+    if args.type == 'all':
+        type_id = None
+    elif args.type == 'touhou':
+        allowed_tags = get_touhou_tags()
+    else:
+        type_id = TAG_TYPES[args.type]
+
+    old_tags = read_tags(os.path.join(TAGS_DIR, old_file), type_id, allowed_tags)
+    new_tags = read_tags(os.path.join(TAGS_DIR, new_file), type_id, allowed_tags)
 
     risers = calculate_growth(old_tags, new_tags)
     risers = sorted(risers, key=lambda x: x[args.sort], reverse=True)
