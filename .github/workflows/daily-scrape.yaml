@@ -1,13 +1,12 @@
-name: Daily Danbooru Scraper
+name: Daily Scrape and Stats
 
-# Triggers the workflow every day at midnight UTC
 on:
   schedule:
+    # Triggers every day at midnight UTC
     - cron: '0 0 * * *'
   # Allows you to run it manually from the GitHub Actions tab
   workflow_dispatch:
 
-# Set permissions to allow writing to the repository
 permissions:
   contents: write
 
@@ -19,8 +18,6 @@ jobs:
     # Step 1: Check out the repository code
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }} # Passes the token to allow pushing
 
     # Step 2: Set up Python
     - name: Set up Python
@@ -32,15 +29,28 @@ jobs:
     - name: Install dependencies
       run: pip install requests
 
-    # Step 4: Configure Git
-    # The script runs 'git commit', which needs a user email and name set
-    - name: Configure Git
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        # IMPORTANT: This tells git to use the token for authentication so 'git push' works
-        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-
-    # Step 5: Run your script
+    # Step 4: Run the scraper (generates CSV files in 'tags/')
     - name: Run scraper
       run: python scrape_tags.py
+
+    # Step 5: Generate the JSON stats using the new CSV data
+    - name: Update Statistics
+      run: python compare_last_two.py --json
+
+    # Step 6: Commit and Push both the CSVs and the JSON
+    - name: Commit and Push
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        
+        # Configure the remote with the token for authentication
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+        
+        # Add the tags directory (scraped data) and the new JSON file
+        git add tags/ tag_stats.json
+        
+        # Commit only if there are actual changes
+        git diff --quiet && git diff --staged --quiet || git commit -m "Daily update: scrape and stats"
+        
+        # Push changes
+        git push

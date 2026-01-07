@@ -4,7 +4,6 @@ import collections
 import csv
 import time
 import datetime
-import subprocess
 
 class Complete(Exception): pass
 
@@ -103,19 +102,4 @@ with open(csv_filename, mode='w', newline='', encoding='utf-8') as file:
         # value structure: [Category, Count, Created At, Alias String]
         writer.writerow([key, value[0], value[1], value[3]])
 
-# Add file to repo
-print("Running git commands...")
-try:
-    # Add file
-    subprocess.run(["git", "add", csv_filename], check=True)
-    
-    # Commit
-    commit_msg = f"Update danbooru tags {filename_date}"
-    subprocess.run(["git", "commit", "-m", commit_msg], check=True)
-    
-    # Push
-    subprocess.run(["git", "push"], check=True)
-    
-    print("Git add, commit, and push successful.")
-except subprocess.CalledProcessError as e:
-    print(f"An error occurred during git operations: {e}")
+print("Scraping complete.")
