@@ -1,0 +1,145 @@
+import csv
+import os
+import argparse
+import json
+from datetime import datetime
+
+TAGS_DIR = "tags"
+MIN_COUNT_THRESHOLD = 50
+TOP_COUNT = 20
+
+TAG_TYPES = {
+    'general': 0,
+    'artist': 1,
+    'series': 3,
+    'character': 4
+}
+
+def get_sorted_files(directory):
+    # Get all CSV files and sort them ascending (oldest to newest)
+    # We assume filenames contain dates or sortable numbers
+    files = sorted([f for f in os.listdir(directory) if f.endswith('.csv')])
+    return files
+
+def read_tags(filepath, tag_type_id=None):
+    tags = {}
+    try:
+        with open(filepath, mode='r', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                try:
+                    if tag_type_id is not None:
+                        if int(row[1]) != tag_type_id:
+                            continue
+                    tags[row[0]] = int(row[2])
+                except (IndexError, ValueError):
+                    continue
+    except FileNotFoundError:
+        pass
+    return tags
+
+def calculate_growth(old_tags, new_tags):
+    growth = []
+    for tag, new_count in new_tags.items():
+        if tag in old_tags and new_count >= MIN_COUNT_THRESHOLD:
+            old_count = old_tags[tag]
+            if old_count > 0:
+                pct = ((new_count - old_count) / old_count) * 100
+                growth.append({
+                    'tag': tag,
+                    'old': old_count,
+                    'new': new_count,
+                    'diff': new_count - old_count,
+                    'percent': pct
+                })
+    return growth
+
+def export_json(filename="tag_stats.json"):
+    files = get_sorted_files(TAGS_DIR)
+    
+    if len(files) < 2:
+        print("Not enough files to generate JSON.")
+        return
+
+    comparisons = []
+    
+    # Iterate through files comparing index i with index i-1
+    for i in range(1, len(files)):
+        new_filename = files[i]
+        old_filename = files[i-1]
+        
+        # Extract a "Date" string from the filename for display
+        # (Removes extension and 'tags' prefix if present)
+        display_date = os.path.splitext(new_filename)[0].replace('tags_', '').replace('tags-', '')
+
+        # Calculate data for this specific pair
+        data_entry = {'date': display_date, 'id': new_filename, 'stats': {}}
+        
+        types_to_process = list(TAG_TYPES.keys()) + ['all']
+        
+        for t_type in types_to_process:
+            type_id = None if t_type == 'all' else TAG_TYPES[t_type]
+            
+            # Only read specific tags needed for this entry to save memory
+            old_tags = read_tags(os.path.join(TAGS_DIR, old_filename), type_id)
+            new_tags = read_tags(os.path.join(TAGS_DIR, new_filename), type_id)
+            
+            raw_growth = calculate_growth(old_tags, new_tags)
+            
+            data_entry['stats'][t_type] = {
+                'percent': sorted(raw_growth, key=lambda x: x['percent'], reverse=True)[:TOP_COUNT],
+                'diff': sorted(raw_growth, key=lambda x: x['diff'], reverse=True)[:TOP_COUNT]
+            }
+            
+        comparisons.append(data_entry)
+
+    # Reverse the list so the most recent comparisons appear first in the UI
+    final_data = list(reversed(comparisons))
+
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(final_data, f, indent=4)
+    print(f"Successfully generated {filename} with {len(final_data)} comparisons.")
+
+def main():
+    parser = argparse.ArgumentParser(description="Compare tag stats between CSV files.")
+    parser.add_argument("--sort", choices=['percent', 'diff'], default='percent', help="Sort metric")
+    parser.add_argument("--type", choices=list(TAG_TYPES.keys()) + ['all'], default='all', help="Tag type filter")
+    parser.add_argument("--json", action="store_true", help="Generate JSON for web.")
+    
+    args = parser.parse_args()
+
+    if not os.path.exists(TAGS_DIR):
+        print(f"Directory '{TAGS_DIR}' not found.")
+        return
+
+    if args.json:
+        export_json()
+        return
+
+    # Original Console Logic (Latest only)
+    files = get_sorted_files(TAGS_DIR)
+    if len(files) < 2:
+        print("Need at least 2 files to compare.")
+        return
+
+    # Use the last two files for CLI
+    old_file, new_file = files[-2], files[-1]
+    
+    type_id = None if args.type == 'all' else TAG_TYPES[args.type]
+    old_tags = read_tags(os.path.join(TAGS_DIR, old_file), type_id)
+    new_tags = read_tags(os.path.join(TAGS_DIR, new_file), type_id)
+
+    risers = calculate_growth(old_tags, new_tags)
+    risers = sorted(risers, key=lambda x: x[args.sort], reverse=True)
+
+    print(f"Comparing {old_file} -> {new_file}")
+    filter_text = f" ({args.type})" if args.type != 'all' else ""
+    print(f"--- Top {TOP_COUNT} Risers{filter_text} (Sorted by {args.sort}) ---")
+    print(f"{'Tag':<30} | {'Old':<10} | {'New':<10} | {'Diff':<10} | {'%':<10}")
+    print("-" * 80)
+    
+    for item in risers[:TOP_COUNT]:
+        print(f"{item['tag']:<30} | {item['old']:<10} | {item['new']:<10} | {item['diff']:<10} | {item['percent']:.2f}%")
+
+if __name__ == "__main__":
+    main()
