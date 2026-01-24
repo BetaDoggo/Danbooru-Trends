@@ -44,6 +44,7 @@
         
         #loading { text-align: center; padding: 40px; font-size: 1.2em; color: #6c757d; }
         .hidden { display: none; }
+        select:disabled { background-color: #e9ecef; color: #6c757d; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -113,7 +114,14 @@
             if (!response.ok) throw new Error("Could not load tag_stats.json");
             allData = await response.json();
             
-            currentData = allData.daily || [];
+            if (Array.isArray(allData)) {
+                currentData = allData;
+                document.getElementById('timeframeSelect').disabled = true;
+                document.getElementById('timeframeSelect').value = 'daily';
+            } else {
+                currentData = allData.daily || [];
+                document.getElementById('timeframeSelect').disabled = false;
+            }
             
             if (currentData.length === 0) {
                 document.getElementById('loading').textContent = "No comparison data found.";
@@ -133,6 +141,10 @@
     }
 
     function setTimeframe() {
+        if (Array.isArray(allData)) {
+            return;
+        }
+        
         const timeframe = document.getElementById('timeframeSelect').value;
         currentData = allData[timeframe] || [];
         
