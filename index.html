@@ -190,7 +190,7 @@
             
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td style="font-weight:500; color:#2c3e50"><a href="https://safebooru.donmai.us/posts?tags=${encodeURIComponent(item.tag)}" target="_blank" style="color:#2c3e50; text-decoration:none;">${item.tag}</a></td>
+                <td style="font-weight:500; color:#2c3e50"><a href="https://safebooru.donmai.us/posts?tags=${encodeURIComponent(item.tag)}" target="_blank" style="color:#007bff; text-decoration:underline;">${item.tag}</a></td>
                 <td>${item.old.toLocaleString()}</td>
                 <td>${item.new.toLocaleString()}</td>
                 <td class="${diffClass}">${diffSign}${item.diff.toLocaleString()}</td>
