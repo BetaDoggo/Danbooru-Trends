@@ -2,6 +2,7 @@ import csv
 import os
 import argparse
 import json
+from datetime import datetime
 
 TAGS_DIR = "tags"
 MIN_COUNT_THRESHOLD = 50
@@ -70,6 +71,81 @@ def calculate_growth(old_tags, new_tags):
                 })
     return growth
 
+def get_display_name(f):
+    name = os.path.splitext(f)[0]
+    return name
+
+def process_comparison(old_filename, new_filename, touhou_whitelist, entry_id=None):
+    """Process a single comparison between two files."""
+    new_name = get_display_name(new_filename)
+    old_name = get_display_name(old_filename)
+    
+    range_label = f"{old_name} to {new_name}"
+    data_entry = {'date': range_label, 'id': entry_id or new_filename, 'stats': {}}
+    
+    types_to_process = list(TAG_TYPES.keys()) + ['all', 'touhou']
+    
+    for t_type in types_to_process:
+        type_id = None
+        allowed = None
+        
+        if t_type == 'all':
+            type_id = None
+        elif t_type == 'touhou':
+            allowed = touhou_whitelist
+        else:
+            type_id = TAG_TYPES[t_type]
+        
+        old_tags = read_tags(os.path.join(TAGS_DIR, old_filename), type_id, allowed)
+        new_tags = read_tags(os.path.join(TAGS_DIR, new_filename), type_id, allowed)
+        
+        raw_growth = calculate_growth(old_tags, new_tags)
+        
+        data_entry['stats'][t_type] = {
+            'percent': sorted(raw_growth, key=lambda x: x['percent'], reverse=True)[:TOP_COUNT],
+            'diff': sorted(raw_growth, key=lambda x: x['diff'], reverse=True)[:TOP_COUNT]
+        }
+    
+    return data_entry
+
+def generate_daily_comparisons(files, touhou_whitelist):
+    """Generate daily comparisons comparing consecutive days."""
+    comparisons = []
+    
+    for i in range(1, len(files)):
+        new_filename = files[i]
+        old_filename = files[i-1]
+        
+        data_entry = process_comparison(old_filename, new_filename, touhou_whitelist)
+        comparisons.append(data_entry)
+    
+    return list(reversed(comparisons))
+
+def generate_weekly_comparisons(files, touhou_whitelist):
+    """
+    Generates weekly comparisons comparing Monday vs previous Monday.
+    Only creates comparisons when full weeks exist.
+    """
+    monday_files = []
+    for f in files:
+        try:
+            date_str = f.replace('danbooru-', '').replace('.csv', '')
+            date = datetime.strptime(date_str, '%Y-%m-%d')
+            if date.weekday() == 0:
+                monday_files.append((f, date))
+        except:
+            continue
+    
+    comparisons = []
+    for i in range(1, len(monday_files)):
+        old_file, old_date = monday_files[i-1]
+        new_file, new_date = monday_files[i]
+        
+        data_entry = process_comparison(old_file, new_file, touhou_whitelist, f'weekly-{new_file}')
+        comparisons.append(data_entry)
+    
+    return list(reversed(comparisons))
+
 def export_json(filename="tag_stats.json"):
     files = get_sorted_files(TAGS_DIR)
     touhou_whitelist = get_touhou_tags()
@@ -78,54 +154,17 @@ def export_json(filename="tag_stats.json"):
         print("Not enough files to generate JSON.")
         return
 
-    comparisons = []
+    daily_comparisons = generate_daily_comparisons(files, touhou_whitelist)
+    weekly_comparisons = generate_weekly_comparisons(files, touhou_whitelist)
     
-    for i in range(1, len(files)):
-        new_filename = files[i]
-        old_filename = files[i-1]
-        
-        def get_display_name(f):
-            name = os.path.splitext(f)[0]
-            return name
-
-        new_name = get_display_name(new_filename)
-        old_name = get_display_name(old_filename)
-        
-        range_label = f"{old_name} to {new_name}"
-        data_entry = {'date': range_label, 'id': new_filename, 'stats': {}}
-        
-        types_to_process = list(TAG_TYPES.keys()) + ['all', 'touhou']
-        
-        for t_type in types_to_process:
-            type_id = None
-            allowed = None
-            
-            if t_type == 'all':
-                type_id = None
-            elif t_type == 'touhou':
-                # Touhou filter uses the whitelist, not a specific tag type ID
-                allowed = touhou_whitelist
-            else:
-                type_id = TAG_TYPES[t_type]
-            
-            old_tags = read_tags(os.path.join(TAGS_DIR, old_filename), type_id, allowed)
-            new_tags = read_tags(os.path.join(TAGS_DIR, new_filename), type_id, allowed)
-            
-            raw_growth = calculate_growth(old_tags, new_tags)
-            
-            data_entry['stats'][t_type] = {
-                'percent': sorted(raw_growth, key=lambda x: x['percent'], reverse=True)[:TOP_COUNT],
-                'diff': sorted(raw_growth, key=lambda x: x['diff'], reverse=True)[:TOP_COUNT]
-            }
-            
-        comparisons.append(data_entry)
-
-    # Reverse the list so the most recent comparisons appear first in the UI
-    final_data = list(reversed(comparisons))
+    final_data = {
+        "daily": daily_comparisons,
+        "weekly": weekly_comparisons
+    }
 
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(final_data, f, indent=4)
-    print(f"Successfully generated {filename} with {len(final_data)} comparisons.")
+    print(f"Successfully generated {filename} with {len(daily_comparisons)} daily and {len(weekly_comparisons)} weekly comparisons.")
 
 def main():
     parser = argparse.ArgumentParser(description="Compare tag stats between CSV files.")

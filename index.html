@@ -50,9 +50,16 @@
 
 <div class="container">
     <h1>Danbooru Tag History</h1>
-    <p class="subtitle">Daily Tag Growth</p>
+    <p class="subtitle" id="subtitle">Daily Tag Growth</p>
     
     <div class="controls">
+        <div class="control-group">
+            <label for="timeframeSelect">Timeframe</label>
+            <select id="timeframeSelect" onchange="setTimeframe()">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+            </select>
+        </div>
         <div class="control-group">
             <label for="dateSelect">Date / Snapshot</label>
             <select id="dateSelect" onchange="updateTable()"></select>
@@ -97,7 +104,8 @@
 </div>
 
 <script>
-    let allData = [];
+    let allData = {};
+    let currentData = [];
 
     async function loadData() {
         try {
@@ -105,19 +113,14 @@
             if (!response.ok) throw new Error("Could not load tag_stats.json");
             allData = await response.json();
             
-            if (allData.length === 0) {
+            currentData = allData.daily || [];
+            
+            if (currentData.length === 0) {
                 document.getElementById('loading').textContent = "No comparison data found.";
                 return;
             }
             
-            // Populate Date Dropdown
-            const dateSelect = document.getElementById('dateSelect');
-            allData.forEach(item => {
-                const opt = document.createElement('option');
-                opt.value = item.id; // Use filename as unique ID
-                opt.text = item.date; // Use extracted date as display
-                dateSelect.appendChild(opt);
-            });
+            populateDateSelect();
 
             document.getElementById('loading').classList.add('hidden');
             document.getElementById('table-container').classList.remove('hidden');
@@ -129,22 +132,42 @@
         }
     }
 
+    function setTimeframe() {
+        const timeframe = document.getElementById('timeframeSelect').value;
+        currentData = allData[timeframe] || [];
+        
+        document.getElementById('subtitle').textContent = 
+            timeframe === 'daily' ? 'Daily Tag Growth' : 'Weekly Tag Growth';
+        
+        populateDateSelect();
+        updateTable();
+    }
+
+    function populateDateSelect() {
+        const dateSelect = document.getElementById('dateSelect');
+        dateSelect.innerHTML = '';
+        
+        currentData.forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item.id;
+            opt.text = item.date;
+            dateSelect.appendChild(opt);
+        });
+    }
+
     function updateTable() {
-        if (allData.length === 0) return;
+        if (currentData.length === 0) return;
 
         const selectedId = document.getElementById('dateSelect').value;
         const type = document.getElementById('typeSelect').value;
         const sort = document.getElementById('sortSelect').value;
 
-        // Find the specific comparison object
-        const comparison = allData.find(c => c.id === selectedId);
+        const comparison = currentData.find(c => c.id === selectedId);
         
         if (!comparison) return;
 
-        // Update Title
         document.getElementById('comparison-title').textContent = `Comparison for: ${comparison.date}`;
 
-        // Get the specific list of stats
         const stats = comparison.stats[type][sort];
         const tbody = document.getElementById('table-body');
         tbody.innerHTML = '';
@@ -165,7 +188,6 @@
         });
     }
 
-    // Load data on startup
     loadData();
 </script>
 
