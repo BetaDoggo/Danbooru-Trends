@@ -146,6 +146,31 @@ def generate_weekly_comparisons(files, touhou_whitelist):
     
     return list(reversed(comparisons))
 
+def generate_monthly_comparisons(files, touhou_whitelist):
+    """
+    Generates monthly comparisons comparing the 5th of consecutive months.
+    Only creates comparisons when both months have data for the 5th.
+    """
+    fifth_files = []
+    for f in files:
+        try:
+            date_str = f.replace('danbooru-', '').replace('.csv', '')
+            date = datetime.strptime(date_str, '%Y-%m-%d')
+            if date.day == 5:
+                fifth_files.append((f, date))
+        except:
+            continue
+    
+    comparisons = []
+    for i in range(1, len(fifth_files)):
+        old_file, old_date = fifth_files[i-1]
+        new_file, new_date = fifth_files[i]
+        
+        data_entry = process_comparison(old_file, new_file, touhou_whitelist, f'monthly-{new_file}')
+        comparisons.append(data_entry)
+    
+    return list(reversed(comparisons))
+
 def export_json(filename="tag_stats.json"):
     files = get_sorted_files(TAGS_DIR)
     touhou_whitelist = get_touhou_tags()
@@ -156,15 +181,17 @@ def export_json(filename="tag_stats.json"):
 
     daily_comparisons = generate_daily_comparisons(files, touhou_whitelist)
     weekly_comparisons = generate_weekly_comparisons(files, touhou_whitelist)
+    monthly_comparisons = generate_monthly_comparisons(files, touhou_whitelist)
     
     final_data = {
         "daily": daily_comparisons,
-        "weekly": weekly_comparisons
+        "weekly": weekly_comparisons,
+        "monthly": monthly_comparisons
     }
 
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(final_data, f, indent=4)
-    print(f"Successfully generated {filename} with {len(daily_comparisons)} daily and {len(weekly_comparisons)} weekly comparisons.")
+    print(f"Successfully generated {filename} with {len(daily_comparisons)} daily, {len(weekly_comparisons)} weekly, and {len(monthly_comparisons)} monthly comparisons.")
 
 def main():
     parser = argparse.ArgumentParser(description="Compare tag stats between CSV files.")

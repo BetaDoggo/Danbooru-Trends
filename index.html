@@ -59,6 +59,7 @@
             <select id="timeframeSelect" onchange="setTimeframe()">
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
             </select>
         </div>
         <div class="control-group">
@@ -148,8 +149,12 @@
         const timeframe = document.getElementById('timeframeSelect').value;
         currentData = allData[timeframe] || [];
         
-        document.getElementById('subtitle').textContent = 
-            timeframe === 'daily' ? 'Daily Tag Growth' : 'Weekly Tag Growth';
+        let subtitleText = 'Tag Growth';
+        if (timeframe === 'daily') subtitleText = 'Daily Tag Growth';
+        else if (timeframe === 'weekly') subtitleText = 'Weekly Tag Growth';
+        else if (timeframe === 'monthly') subtitleText = 'Monthly Tag Growth';
+        
+        document.getElementById('subtitle').textContent = subtitleText;
         
         populateDateSelect();
         updateTable();
