@@ -30,8 +30,46 @@ def get_touhou_tags(filename="touhous.txt"):
 
 def get_sorted_files(directory):
     # We assume filenames contain dates or sortable numbers
-    files = sorted([f for f in os.listdir(directory) if f.endswith('.csv')])
+    # Exclude tags.csv from the list as it's the wide-format file
+    files = sorted([f for f in os.listdir(directory) if f.endswith('.csv') and f != 'tags.csv'])
     return files
+
+def read_tags_from_wide(tags_csv_path, date_str, tag_type_id=None, allowed_tags=None):
+    """Read tags from wide-format tags.csv for specific date"""
+    tags = {}
+    
+    with open(tags_csv_path, 'r', encoding='utf-8') as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        
+        # Find date column index
+        if date_str not in header:
+            print(f"Warning: Date {date_str} not found in tags.csv")
+            return tags
+        
+        date_idx = header.index(date_str)
+        
+        # Read rows
+        for row in reader:
+            tag_name = row[0]
+            category = row[1]
+            count = row[date_idx] if date_idx < len(row) else ''
+            
+            # Skip if no count for this date
+            if not count:
+                continue
+            
+            # Filter by category
+            if tag_type_id is not None and str(category) != str(tag_type_id):
+                continue
+            
+            # Filter by allowed tags
+            if allowed_tags is not None and tag_name not in allowed_tags:
+                continue
+            
+            tags[tag_name] = int(count)
+    
+    return tags
 
 def read_tags(filepath, tag_type_id=None, allowed_tags=None):
     tags = {}
@@ -75,7 +113,7 @@ def get_display_name(f):
     name = os.path.splitext(f)[0]
     return name
 
-def process_comparison(old_filename, new_filename, touhou_whitelist, entry_id=None):
+def process_comparison(old_filename, new_filename, touhou_whitelist, entry_id=None, use_wide_format=True):
     """Process a single comparison between two files."""
     new_name = get_display_name(new_filename)
     old_name = get_display_name(old_filename)
@@ -84,6 +122,12 @@ def process_comparison(old_filename, new_filename, touhou_whitelist, entry_id=No
     data_entry = {'date': range_label, 'id': entry_id or new_filename, 'stats': {}}
     
     types_to_process = list(TAG_TYPES.keys()) + ['all', 'touhou']
+    
+    # Extract date strings from filenames
+    old_date = old_filename.replace('danbooru-', '').replace('.csv', '')
+    new_date = new_filename.replace('danbooru-', '').replace('.csv', '')
+    
+    tags_csv_path = 'tags.csv'
     
     for t_type in types_to_process:
         type_id = None
@@ -96,8 +140,14 @@ def process_comparison(old_filename, new_filename, touhou_whitelist, entry_id=No
         else:
             type_id = TAG_TYPES[t_type]
         
-        old_tags = read_tags(os.path.join(TAGS_DIR, old_filename), type_id, allowed)
-        new_tags = read_tags(os.path.join(TAGS_DIR, new_filename), type_id, allowed)
+        if use_wide_format and os.path.exists(tags_csv_path):
+            # Read from wide-format tags.csv
+            old_tags = read_tags_from_wide(tags_csv_path, old_date, type_id, allowed)
+            new_tags = read_tags_from_wide(tags_csv_path, new_date, type_id, allowed)
+        else:
+            # Fall back to reading individual files
+            old_tags = read_tags(os.path.join(TAGS_DIR, old_filename), type_id, allowed)
+            new_tags = read_tags(os.path.join(TAGS_DIR, new_filename), type_id, allowed)
         
         raw_growth = calculate_growth(old_tags, new_tags)
         
@@ -227,8 +277,21 @@ def main():
     else:
         type_id = TAG_TYPES[args.type]
 
-    old_tags = read_tags(os.path.join(TAGS_DIR, old_file), type_id, allowed_tags)
-    new_tags = read_tags(os.path.join(TAGS_DIR, new_file), type_id, allowed_tags)
+    # Extract date strings from filenames
+    old_date = old_file.replace('danbooru-', '').replace('.csv', '')
+    new_date = new_file.replace('danbooru-', '').replace('.csv', '')
+    
+    tags_csv_path = 'tags.csv'
+    
+    # Try to use wide format if available
+    if os.path.exists(tags_csv_path):
+        old_tags = read_tags_from_wide(tags_csv_path, old_date, type_id, allowed_tags)
+        new_tags = read_tags_from_wide(tags_csv_path, new_date, type_id, allowed_tags)
+        print(f"Using wide-format tags.csv")
+    else:
+        old_tags = read_tags(os.path.join(TAGS_DIR, old_file), type_id, allowed_tags)
+        new_tags = read_tags(os.path.join(TAGS_DIR, new_file), type_id, allowed_tags)
+        print(f"Using individual CSV files")
 
     risers = calculate_growth(old_tags, new_tags)
     risers = sorted(risers, key=lambda x: x[args.sort], reverse=True)

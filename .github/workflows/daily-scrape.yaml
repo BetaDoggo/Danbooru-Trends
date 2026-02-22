@@ -48,8 +48,8 @@ jobs:
         # Configure the remote with the token for authentication
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
         
-        # Add the tags directory (scraped data) and the new JSON file
-        git add tags/ tag_stats.json
+        # Add the tags directory (scraped data), tags.csv, and the new JSON file
+        git add tags/ tags.csv tag_stats.json
         
         # Commit only if there are actual changes
         git diff --quiet && git diff --staged --quiet || git commit -m "Daily update: scrape and stats"
