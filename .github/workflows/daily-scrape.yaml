@@ -27,10 +27,12 @@ jobs:
 
     # Step 3: Install required libraries
     - name: Install dependencies
-      run: pip install requests
+      run: pip install -r requirements.txt
 
     # Step 4: Run the scraper (generates CSV files in 'tags/')
     - name: Run scraper
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
       run: python scrape_tags.py
 
     # Step 5: Generate the JSON stats using the new CSV data

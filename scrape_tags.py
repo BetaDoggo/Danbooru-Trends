@@ -55,6 +55,32 @@ def get_aliases(url):
         print(f"Error fetching aliases: {e}")
     return aliases
 
+def upload_to_huggingface(csv_file_path, date_str):
+    from huggingface_hub import HfApi
+    
+    hf_token = os.getenv('HF_TOKEN')
+    if not hf_token:
+        print("HF_TOKEN not found - skipping HuggingFace upload")
+        return False
+    
+    api = HfApi()
+    repo_id = "HDiffusion/historical-danbooru-tag-counts"
+    filename = f"danbooru-{date_str}.csv"
+    
+    try:
+        api.upload_file(
+            path_or_fileobj=csv_file_path,
+            path_in_repo=filename,
+            repo_id=repo_id,
+            repo_type="dataset",
+            commit_message=f"Add daily tag counts for {date_str}",
+        )
+        print(f"Uploaded {filename} to HuggingFace")
+        return True
+    except Exception as e:
+        print(f"Failed to upload to HuggingFace: {e}")
+        return False
+
 # Get Tags
 dan_tags = {}
 try:
@@ -103,3 +129,5 @@ with open(csv_filename, mode='w', newline='', encoding='utf-8') as file:
         writer.writerow([key, value[0], value[1], value[3]])
 
 print("Scraping complete.")
+
+upload_to_huggingface(csv_filename, filename_date)
