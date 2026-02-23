@@ -81,13 +81,13 @@ def upload_to_huggingface(csv_file_path, date_str):
         print(f"Failed to upload to HuggingFace: {e}")
         return False
 
-def merge_into_tags_csv(daily_csv_path, date_str):
+def merge_into_tags_csv(csv_file_path, date_str):
     """Merge today's data into tags.csv"""
     tags_csv_path = "tags.csv"
     
     # Read today's daily CSV
     daily_data = {}
-    with open(daily_csv_path, 'r', encoding='utf-8') as f:
+    with open(csv_file_path, 'r', encoding='utf-8') as f:
         reader = csv.reader(f)
         next(reader)  # Skip header
         for row in reader:
