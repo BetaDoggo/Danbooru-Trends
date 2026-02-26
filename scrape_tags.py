@@ -89,7 +89,6 @@ def merge_into_tags_csv(csv_file_path, date_str):
     daily_data = {}
     with open(csv_file_path, 'r', encoding='utf-8') as f:
         reader = csv.reader(f)
-        next(reader)  # Skip header
         for row in reader:
             daily_data[row[0]] = row  # tag_name -> [name, category, count, aliases]
     
