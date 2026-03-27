@@ -8,18 +8,14 @@ TAGS_DIR = "tags"
 MIN_COUNT_THRESHOLD = 50
 TOP_COUNT = 20
 
-TAG_TYPES = {
-    'general': 0,
-    'artist': 1,
-    'series': 3,
-    'character': 4
-}
+TAG_TYPES = {"general": 0, "artist": 1, "series": 3, "character": 4}
+
 
 def get_touhou_tags(filename="touhous.txt"):
     """Reads the list of Touhou tags from a text file."""
     tags = set()
     if os.path.exists(filename):
-        with open(filename, 'r', encoding='utf-8') as f:
+        with open(filename, "r", encoding="utf-8") as f:
             for line in f:
                 tag = line.strip()
                 if tag:
@@ -28,60 +24,65 @@ def get_touhou_tags(filename="touhous.txt"):
         print(f"Warning: '{filename}' not found. Touhou category will be empty.")
     return tags
 
+
 def get_sorted_files(directory):
     # We assume filenames contain dates or sortable numbers
     # Exclude tags.csv from the list as it's the wide-format file
-    files = sorted([f for f in os.listdir(directory) if f.endswith('.csv') and f != 'tags.csv'])
+    files = sorted(
+        [f for f in os.listdir(directory) if f.endswith(".csv") and f != "tags.csv"]
+    )
     return files
+
 
 def read_tags_from_wide(tags_csv_path, date_str, tag_type_id=None, allowed_tags=None):
     """Read tags from wide-format tags.csv for specific date"""
     tags = {}
-    
-    with open(tags_csv_path, 'r', encoding='utf-8') as f:
+
+    with open(tags_csv_path, "r", encoding="utf-8") as f:
         reader = csv.reader(f)
         header = next(reader)
-        
+
         # Find date column index
         if date_str not in header:
             print(f"Warning: Date {date_str} not found in tags.csv")
             return tags
-        
+
         date_idx = header.index(date_str)
-        
+
         # Read rows
         for row in reader:
             tag_name = row[0]
             category = row[1]
-            count = row[date_idx] if date_idx < len(row) else ''
-            
+            count = row[date_idx] if date_idx < len(row) else ""
+
             # Skip if no count for this date
             if not count:
                 continue
-            
+
             # Filter by category
             if tag_type_id is not None and str(category) != str(tag_type_id):
                 continue
-            
+
             # Filter by allowed tags
             if allowed_tags is not None and tag_name not in allowed_tags:
                 continue
-            
+
             tags[tag_name] = int(count)
-    
+
     return tags
+
 
 def read_tags(filepath, tag_type_id=None, allowed_tags=None):
     tags = {}
     try:
-        with open(filepath, mode='r', encoding='utf-8') as file:
+        with open(filepath, mode="r", encoding="utf-8") as file:
             reader = csv.reader(file)
             for row in reader:
                 try:
                     if tag_type_id is not None:
                         if int(row[1]) != tag_type_id:
                             continue
-                    
+
                     if allowed_tags is not None:
                         if row[0] not in allowed_tags:
                             continue
@@ -93,6 +94,7 @@ def read_tags(filepath, tag_type_id=None, allowed_tags=None):
         pass
     return tags
 
+
 def calculate_growth(old_tags, new_tags):
     growth = []
     for tag, new_count in new_tags.items():
@@ -100,46 +102,52 @@ def calculate_growth(old_tags, new_tags):
             old_count = old_tags[tag]
             if old_count > 0:
                 pct = ((new_count - old_count) / old_count) * 100
-                growth.append({
-                    'tag': tag,
-                    'old': old_count,
-                    'new': new_count,
-                    'diff': new_count - old_count,
-                    'percent': pct
-                })
+                growth.append(
+                    {
+                        "tag": tag,
+                        "old": old_count,
+                        "new": new_count,
+                        "diff": new_count - old_count,
+                        "percent": pct,
+                    }
+                )
     return growth
+
 
 def get_display_name(f):
     name = os.path.splitext(f)[0]
     return name
 
-def process_comparison(old_filename, new_filename, touhou_whitelist, entry_id=None, use_wide_format=True):
+
+def process_comparison(
+    old_filename, new_filename, touhou_whitelist, entry_id=None, use_wide_format=True
+):
     """Process a single comparison between two files."""
     new_name = get_display_name(new_filename)
     old_name = get_display_name(old_filename)
-    
+
     range_label = f"{old_name} to {new_name}"
-    data_entry = {'date': range_label, 'id': entry_id or new_filename, 'stats': {}}
-    
-    types_to_process = list(TAG_TYPES.keys()) + ['all', 'touhou']
-    
+    data_entry = {"date": range_label, "id": entry_id or new_filename, "stats": {}}
+
+    types_to_process = list(TAG_TYPES.keys()) + ["all", "touhou"]
+
     # Extract date strings from filenames
-    old_date = old_filename.replace('danbooru-', '').replace('.csv', '')
-    new_date = new_filename.replace('danbooru-', '').replace('.csv', '')
-    
-    tags_csv_path = 'tags.csv'
-    
+    old_date = old_filename.replace("danbooru-", "").replace(".csv", "")
+    new_date = new_filename.replace("danbooru-", "").replace(".csv", "")
+
+    tags_csv_path = "tags.csv"
+
     for t_type in types_to_process:
         type_id = None
         allowed = None
-        
-        if t_type == 'all':
+
+        if t_type == "all":
             type_id = None
-        elif t_type == 'touhou':
+        elif t_type == "touhou":
             allowed = touhou_whitelist
         else:
             type_id = TAG_TYPES[t_type]
-        
+
         if use_wide_format and os.path.exists(tags_csv_path):
             # Read from wide-format tags.csv
             old_tags = read_tags_from_wide(tags_csv_path, old_date, type_id, allowed)
@@ -148,28 +156,34 @@ def process_comparison(old_filename, new_filename, touhou_whitelist, entry_id=No
             # Fall back to reading individual files
             old_tags = read_tags(os.path.join(TAGS_DIR, old_filename), type_id, allowed)
             new_tags = read_tags(os.path.join(TAGS_DIR, new_filename), type_id, allowed)
-        
+
         raw_growth = calculate_growth(old_tags, new_tags)
-        
-        data_entry['stats'][t_type] = {
-            'percent': sorted(raw_growth, key=lambda x: x['percent'], reverse=True)[:TOP_COUNT],
-            'diff': sorted(raw_growth, key=lambda x: x['diff'], reverse=True)[:TOP_COUNT]
+
+        data_entry["stats"][t_type] = {
+            "percent": sorted(raw_growth, key=lambda x: x["percent"], reverse=True)[
+                :TOP_COUNT
+            ],
+            "diff": sorted(raw_growth, key=lambda x: x["diff"], reverse=True)[
+                :TOP_COUNT
+            ],
         }
-    
+
     return data_entry
+
 
 def generate_daily_comparisons(files, touhou_whitelist):
     """Generate daily comparisons comparing consecutive days."""
     comparisons = []
-    
+
     for i in range(1, len(files)):
         new_filename = files[i]
-        old_filename = files[i-1]
-        
+        old_filename = files[i - 1]
+
         data_entry = process_comparison(old_filename, new_filename, touhou_whitelist)
         comparisons.append(data_entry)
-    
+
     return list(reversed(comparisons))
+
 
 def generate_weekly_comparisons(files, touhou_whitelist):
     """
@@ -179,22 +193,25 @@ def generate_weekly_comparisons(files, touhou_whitelist):
     monday_files = []
     for f in files:
         try:
-            date_str = f.replace('danbooru-', '').replace('.csv', '')
-            date = datetime.strptime(date_str, '%Y-%m-%d')
+            date_str = f.replace("danbooru-", "").replace(".csv", "")
+            date = datetime.strptime(date_str, "%Y-%m-%d")
             if date.weekday() == 0:
                 monday_files.append((f, date))
         except:
             continue
-    
+
     comparisons = []
     for i in range(1, len(monday_files)):
-        old_file, old_date = monday_files[i-1]
+        old_file, old_date = monday_files[i - 1]
         new_file, new_date = monday_files[i]
-        
-        data_entry = process_comparison(old_file, new_file, touhou_whitelist, f'weekly-{new_file}')
+
+        data_entry = process_comparison(
+            old_file, new_file, touhou_whitelist, f"weekly-{new_file}"
+        )
         comparisons.append(data_entry)
-    
+
     return list(reversed(comparisons))
+
 
 def generate_monthly_comparisons(files, touhou_whitelist):
     """
@@ -204,51 +221,145 @@ def generate_monthly_comparisons(files, touhou_whitelist):
     fifth_files = []
     for f in files:
         try:
-            date_str = f.replace('danbooru-', '').replace('.csv', '')
-            date = datetime.strptime(date_str, '%Y-%m-%d')
+            date_str = f.replace("danbooru-", "").replace(".csv", "")
+            date = datetime.strptime(date_str, "%Y-%m-%d")
             if date.day == 5:
                 fifth_files.append((f, date))
         except:
             continue
-    
+
     comparisons = []
     for i in range(1, len(fifth_files)):
-        old_file, old_date = fifth_files[i-1]
+        old_file, old_date = fifth_files[i - 1]
         new_file, new_date = fifth_files[i]
-        
-        data_entry = process_comparison(old_file, new_file, touhou_whitelist, f'monthly-{new_file}')
+
+        data_entry = process_comparison(
+            old_file, new_file, touhou_whitelist, f"monthly-{new_file}"
+        )
         comparisons.append(data_entry)
-    
+
     return list(reversed(comparisons))
 
-def export_json(filename="tag_stats.json"):
+
+def export_json(filename="tag_stats.json", incremental=True):
     files = get_sorted_files(TAGS_DIR)
     touhou_whitelist = get_touhou_tags()
-    
+
     if len(files) < 2:
         print("Not enough files to generate JSON.")
         return
 
-    daily_comparisons = generate_daily_comparisons(files, touhou_whitelist)
-    weekly_comparisons = generate_weekly_comparisons(files, touhou_whitelist)
-    monthly_comparisons = generate_monthly_comparisons(files, touhou_whitelist)
-    
+    if incremental and os.path.exists(filename):
+        with open(filename, "r", encoding="utf-8") as f:
+            existing_data = json.load(f)
+
+        daily_existing_ids = {entry["id"] for entry in existing_data.get("daily", [])}
+        weekly_existing_ids = {entry["id"] for entry in existing_data.get("weekly", [])}
+        monthly_existing_ids = {
+            entry["id"] for entry in existing_data.get("monthly", [])
+        }
+
+        existing_daily = existing_data.get("daily", [])
+        existing_weekly = existing_data.get("weekly", [])
+        existing_monthly = existing_data.get("monthly", [])
+
+        new_daily = []
+        for i in range(len(files) - 1, 0, -1):
+            new_filename = files[i]
+            old_filename = files[i - 1]
+            if new_filename not in daily_existing_ids:
+                entry = process_comparison(old_filename, new_filename, touhou_whitelist)
+                new_daily.append(entry)
+            else:
+                break
+
+        new_weekly = []
+        monday_files = []
+        for f in files:
+            try:
+                date_str = f.replace("danbooru-", "").replace(".csv", "")
+                date = datetime.strptime(date_str, "%Y-%m-%d")
+                if date.weekday() == 0:
+                    monday_files.append((f, date))
+            except:
+                continue
+        for i in range(len(monday_files) - 1, 0, -1):
+            new_file, new_date = monday_files[i]
+            old_file, old_date = monday_files[i - 1]
+            entry_id = f"weekly-{new_file}"
+            if entry_id not in weekly_existing_ids:
+                entry = process_comparison(
+                    old_file, new_file, touhou_whitelist, entry_id
+                )
+                new_weekly.append(entry)
+            else:
+                break
+
+        new_monthly = []
+        fifth_files = []
+        for f in files:
+            try:
+                date_str = f.replace("danbooru-", "").replace(".csv", "")
+                date = datetime.strptime(date_str, "%Y-%m-%d")
+                if date.day == 5:
+                    fifth_files.append((f, date))
+            except:
+                continue
+        for i in range(len(fifth_files) - 1, 0, -1):
+            new_file, new_date = fifth_files[i]
+            old_file, old_date = fifth_files[i - 1]
+            entry_id = f"monthly-{new_file}"
+            if entry_id not in monthly_existing_ids:
+                entry = process_comparison(
+                    old_file, new_file, touhou_whitelist, entry_id
+                )
+                new_monthly.append(entry)
+            else:
+                break
+
+        daily_comparisons = new_daily + existing_daily
+        weekly_comparisons = new_weekly + existing_weekly
+        monthly_comparisons = new_monthly + existing_monthly
+
+        print(
+            f"Incremental: computed {len(new_daily)} new daily, {len(new_weekly)} new weekly, {len(new_monthly)} new monthly comparisons."
+        )
+    else:
+        daily_comparisons = generate_daily_comparisons(files, touhou_whitelist)
+        weekly_comparisons = generate_weekly_comparisons(files, touhou_whitelist)
+        monthly_comparisons = generate_monthly_comparisons(files, touhou_whitelist)
+
     final_data = {
         "daily": daily_comparisons,
         "weekly": weekly_comparisons,
-        "monthly": monthly_comparisons
+        "monthly": monthly_comparisons,
     }
 
-    with open(filename, 'w', encoding='utf-8') as f:
+    with open(filename, "w", encoding="utf-8") as f:
         json.dump(final_data, f, indent=4)
-    print(f"Successfully generated {filename} with {len(daily_comparisons)} daily, {len(weekly_comparisons)} weekly, and {len(monthly_comparisons)} monthly comparisons.")
+    print(
+        f"Successfully generated {filename} with {len(daily_comparisons)} daily, {len(weekly_comparisons)} weekly, and {len(monthly_comparisons)} monthly comparisons."
+    )
+
 
 def main():
     parser = argparse.ArgumentParser(description="Compare tag stats between CSV files.")
-    parser.add_argument("--sort", choices=['percent', 'diff'], default='percent', help="Sort metric")
-    parser.add_argument("--type", choices=list(TAG_TYPES.keys()) + ['all', 'touhou'], default='all', help="Tag type filter")
+    parser.add_argument(
+        "--sort", choices=["percent", "diff"], default="percent", help="Sort metric"
+    )
+    parser.add_argument(
+        "--type",
+        choices=list(TAG_TYPES.keys()) + ["all", "touhou"],
+        default="all",
+        help="Tag type filter",
+    )
     parser.add_argument("--json", action="store_true", help="Generate JSON for web.")
-    
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Force full regeneration of JSON (ignore incremental).",
+    )
+
     args = parser.parse_args()
 
     if not os.path.exists(TAGS_DIR):
@@ -256,7 +367,7 @@ def main():
         return
 
     if args.json:
-        export_json()
+        export_json(incremental=not args.force)
         return
 
     # Original Console Logic (Latest only)
@@ -266,23 +377,23 @@ def main():
         return
 
     old_file, new_file = files[-2], files[-1]
-    
+
     type_id = None
     allowed_tags = None
 
-    if args.type == 'all':
+    if args.type == "all":
         type_id = None
-    elif args.type == 'touhou':
+    elif args.type == "touhou":
         allowed_tags = get_touhou_tags()
     else:
         type_id = TAG_TYPES[args.type]
 
     # Extract date strings from filenames
-    old_date = old_file.replace('danbooru-', '').replace('.csv', '')
-    new_date = new_file.replace('danbooru-', '').replace('.csv', '')
-    
-    tags_csv_path = 'tags.csv'
-    
+    old_date = old_file.replace("danbooru-", "").replace(".csv", "")
+    new_date = new_file.replace("danbooru-", "").replace(".csv", "")
+
+    tags_csv_path = "tags.csv"
+
     # Try to use wide format if available
     if os.path.exists(tags_csv_path):
         old_tags = read_tags_from_wide(tags_csv_path, old_date, type_id, allowed_tags)
@@ -297,13 +408,16 @@ def main():
     risers = sorted(risers, key=lambda x: x[args.sort], reverse=True)
 
     print(f"Comparing {old_file} -> {new_file}")
-    filter_text = f" ({args.type})" if args.type != 'all' else ""
+    filter_text = f" ({args.type})" if args.type != "all" else ""
     print(f"--- Top {TOP_COUNT} Risers{filter_text} (Sorted by {args.sort}) ---")
     print(f"{'Tag':<30} | {'Old':<10} | {'New':<10} | {'Diff':<10} | {'%':<10}")
     print("-" * 80)
-    
+
     for item in risers[:TOP_COUNT]:
-        print(f"{item['tag']:<30} | {item['old']:<10} | {item['new']:<10} | {item['diff']:<10} | {item['percent']:.2f}%")
+        print(
+            f"{item['tag']:<30} | {item['old']:<10} | {item['new']:<10} | {item['diff']:<10} | {item['percent']:.2f}%"
+        )
+
 
 if __name__ == "__main__":
     main()
