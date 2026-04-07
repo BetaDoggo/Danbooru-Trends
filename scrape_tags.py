@@ -212,4 +212,8 @@ with open(csv_filename, mode='w', newline='', encoding='utf-8') as file:
 print("Scraping complete.")
 
 merge_into_tags_csv(csv_filename, filename_date)
-upload_to_huggingface(csv_filename, filename_date)
+hf_success = upload_to_huggingface(csv_filename, filename_date)
+
+status_file = ".hf_upload_status"
+with open(status_file, "w") as f:
+    f.write("success" if hf_success else "failed")

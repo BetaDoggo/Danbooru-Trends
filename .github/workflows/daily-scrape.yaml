@@ -39,7 +39,7 @@ jobs:
     - name: Update Statistics
       run: python compare_last_two.py --json
 
-    # Step 6: Commit and Push both the CSVs and the JSON
+    # Step 6: Commit and Push tag_stats.json (always needed for GitHub Pages)
     - name: Commit and Push
       run: |
         git config user.name "github-actions[bot]"
@@ -48,8 +48,14 @@ jobs:
         # Configure the remote with the token for authentication
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
         
-        # Add the tags directory (scraped data), tags.csv, and the new JSON file
-        git add tags/ tags.csv tag_stats.json
+        # Always add tag_stats.json (needed for the live dashboard)
+        git add tag_stats.json
+        
+        # Only commit tags/ and tags.csv if HuggingFace upload failed
+        if [ -f .hf_upload_status ] && grep -q "failed" .hf_upload_status; then
+          echo "HF upload failed - committing local data as backup"
+          git add tags/ tags.csv
+        fi
         
         # Commit only if there are actual changes
         git diff --quiet && git diff --staged --quiet || git commit -m "Daily update: scrape and stats"
