@@ -1,6 +1,1728 @@
 {
     "daily": [
         {
+            "date": "2026-04-07 to 2026-05-23",
+            "id": "danbooru-2026-05-23.csv",
+            "stats": {
+                "general": {
+                    "percent": [
+                        {
+                            "tag": "holding_unworn_jacket",
+                            "old": 179,
+                            "new": 3092,
+                            "diff": 2913,
+                            "percent": 1627.3743016759777
+                        },
+                        {
+                            "tag": "holding_another's_horns",
+                            "old": 124,
+                            "new": 1456,
+                            "diff": 1332,
+                            "percent": 1074.1935483870968
+                        },
+                        {
+                            "tag": "gauze_on_face",
+                            "old": 332,
+                            "new": 2594,
+                            "diff": 2262,
+                            "percent": 681.3253012048193
+                        },
+                        {
+                            "tag": "pavilion",
+                            "old": 82,
+                            "new": 600,
+                            "diff": 518,
+                            "percent": 631.7073170731708
+                        },
+                        {
+                            "tag": "integrity_knight_armor",
+                            "old": 52,
+                            "new": 380,
+                            "diff": 328,
+                            "percent": 630.7692307692307
+                        },
+                        {
+                            "tag": "red_feet",
+                            "old": 107,
+                            "new": 701,
+                            "diff": 594,
+                            "percent": 555.1401869158879
+                        },
+                        {
+                            "tag": "grabbing_another's_thighs",
+                            "old": 1001,
+                            "new": 5808,
+                            "diff": 4807,
+                            "percent": 480.2197802197802
+                        },
+                        {
+                            "tag": "sleeveless_shrug",
+                            "old": 126,
+                            "new": 651,
+                            "diff": 525,
+                            "percent": 416.6666666666667
+                        },
+                        {
+                            "tag": "multicolored_text",
+                            "old": 70,
+                            "new": 359,
+                            "diff": 289,
+                            "percent": 412.8571428571429
+                        },
+                        {
+                            "tag": "amen_pose_(meme)",
+                            "old": 94,
+                            "new": 441,
+                            "diff": 347,
+                            "percent": 369.1489361702128
+                        },
+                        {
+                            "tag": "mihuashi_logo",
+                            "old": 83,
+                            "new": 385,
+                            "diff": 302,
+                            "percent": 363.855421686747
+                        },
+                        {
+                            "tag": "holding_another's_legs",
+                            "old": 347,
+                            "new": 1539,
+                            "diff": 1192,
+                            "percent": 343.5158501440922
+                        },
+                        {
+                            "tag": "riding_person",
+                            "old": 57,
+                            "new": 248,
+                            "diff": 191,
+                            "percent": 335.08771929824564
+                        },
+                        {
+                            "tag": "lifebuoy_anklet",
+                            "old": 114,
+                            "new": 492,
+                            "diff": 378,
+                            "percent": 331.57894736842104
+                        },
+                        {
+                            "tag": "firefighter_helmet",
+                            "old": 67,
+                            "new": 289,
+                            "diff": 222,
+                            "percent": 331.34328358208955
+                        },
+                        {
+                            "tag": "cumdrip_from_penis",
+                            "old": 449,
+                            "new": 1919,
+                            "diff": 1470,
+                            "percent": 327.3942093541203
+                        },
+                        {
+                            "tag": "on_fence",
+                            "old": 103,
+                            "new": 376,
+                            "diff": 273,
+                            "percent": 265.0485436893204
+                        },
+                        {
+                            "tag": "holding_drink_carton",
+                            "old": 884,
+                            "new": 2982,
+                            "diff": 2098,
+                            "percent": 237.33031674208144
+                        },
+                        {
+                            "tag": "corinthian_helmet",
+                            "old": 60,
+                            "new": 198,
+                            "diff": 138,
+                            "percent": 229.99999999999997
+                        },
+                        {
+                            "tag": "spreading_another's_anus",
+                            "old": 371,
+                            "new": 1201,
+                            "diff": 830,
+                            "percent": 223.71967654986526
+                        }
+                    ],
+                    "diff": [
+                        {
+                            "tag": "1girl",
+                            "old": 7668487,
+                            "new": 7900170,
+                            "diff": 231683,
+                            "percent": 3.0212348276785237
+                        },
+                        {
+                            "tag": "solo",
+                            "old": 6408074,
+                            "new": 6615377,
+                            "diff": 207303,
+                            "percent": 3.2350281847556692
+                        },
+                        {
+                            "tag": "long_hair",
+                            "old": 5644391,
+                            "new": 5816925,
+                            "diff": 172534,
+                            "percent": 3.05673366710421
+                        },
+                        {
+                            "tag": "looking_at_viewer",
+                            "old": 4427968,
+                            "new": 4576017,
+                            "diff": 148049,
+                            "percent": 3.343497513983841
+                        },
+                        {
+                            "tag": "breasts",
+                            "old": 4503309,
+                            "new": 4648472,
+                            "diff": 145163,
+                            "percent": 3.2234741164774614
+                        },
+                        {
+                            "tag": "smile",
+                            "old": 3782573,
+                            "new": 3901620,
+                            "diff": 119047,
+                            "percent": 3.147249240133634
+                        },
+                        {
+                            "tag": "blush",
+                            "old": 3743610,
+                            "new": 3855337,
+                            "diff": 111727,
+                            "percent": 2.984472207307919
+                        },
+                        {
+                            "tag": "open_mouth",
+                            "old": 3141577,
+                            "new": 3248907,
+                            "diff": 107330,
+                            "percent": 3.4164370314654073
+                        },
+                        {
+                            "tag": "shirt",
+                            "old": 2597288,
+                            "new": 2702261,
+                            "diff": 104973,
+                            "percent": 4.0416388171046105
+                        },
+                        {
+                            "tag": "simple_background",
+                            "old": 2537794,
+                            "new": 2635276,
+                            "diff": 97482,
+                            "percent": 3.8412101218617427
+                        },
+                        {
+                            "tag": ":d",
+                            "old": 707997,
+                            "new": 803780,
+                            "diff": 95783,
+                            "percent": 13.528729641509779
+                        },
+                        {
+                            "tag": "white_background",
+                            "old": 2086983,
+                            "new": 2164595,
+                            "diff": 77612,
+                            "percent": 3.718861150282489
+                        },
+                        {
+                            "tag": "short_hair",
+                            "old": 2877697,
+                            "new": 2953866,
+                            "diff": 76169,
+                            "percent": 2.646873524210506
+                        },
+                        {
+                            "tag": "closed_mouth",
+                            "old": 1725211,
+                            "new": 1798887,
+                            "diff": 73676,
+                            "percent": 4.270550095031854
+                        },
+                        {
+                            "tag": "holding",
+                            "old": 1957671,
+                            "new": 2031292,
+                            "diff": 73621,
+                            "percent": 3.760642109935735
+                        },
+                        {
+                            "tag": "long_sleeves",
+                            "old": 2126946,
+                            "new": 2197752,
+                            "diff": 70806,
+                            "percent": 3.3289984795100582
+                        },
+                        {
+                            "tag": "large_breasts",
+                            "old": 2049844,
+                            "new": 2116327,
+                            "diff": 66483,
+                            "percent": 3.2433199794716088
+                        },
+                        {
+                            "tag": "blue_eyes",
+                            "old": 2260353,
+                            "new": 2325126,
+                            "diff": 64773,
+                            "percent": 2.8656143531563436
+                        },
+                        {
+                            "tag": "1boy",
+                            "old": 1921613,
+                            "new": 1984860,
+                            "diff": 63247,
+                            "percent": 3.291349506898632
+                        },
+                        {
+                            "tag": "animal_ears",
+                            "old": 1573217,
+                            "new": 1635131,
+                            "diff": 61914,
+                            "percent": 3.9355028581562492
+                        }
+                    ]
+                },
+                "artist": {
+                    "percent": [
+                        {
+                            "tag": "shiromochi_sakura",
+                            "old": 184,
+                            "new": 4070,
+                            "diff": 3886,
+                            "percent": 2111.9565217391305
+                        },
+                        {
+                            "tag": "decrilus",
+                            "old": 76,
+                            "new": 934,
+                            "diff": 858,
+                            "percent": 1128.9473684210525
+                        },
+                        {
+                            "tag": "hh",
+                            "old": 66,
+                            "new": 800,
+                            "diff": 734,
+                            "percent": 1112.121212121212
+                        },
+                        {
+                            "tag": "9ml",
+                            "old": 57,
+                            "new": 396,
+                            "diff": 339,
+                            "percent": 594.7368421052632
+                        },
+                        {
+                            "tag": "9rimson",
+                            "old": 125,
+                            "new": 806,
+                            "diff": 681,
+                            "percent": 544.8000000000001
+                        },
+                        {
+                            "tag": "glassy0302",
+                            "old": 112,
+                            "new": 609,
+                            "diff": 497,
+                            "percent": 443.75
+                        },
+                        {
+                            "tag": "funamushi_(funa)",
+                            "old": 55,
+                            "new": 298,
+                            "diff": 243,
+                            "percent": 441.8181818181818
+                        },
+                        {
+                            "tag": "musasabiop",
+                            "old": 52,
+                            "new": 255,
+                            "diff": 203,
+                            "percent": 390.38461538461536
+                        },
+                        {
+                            "tag": "happy_elements",
+                            "old": 237,
+                            "new": 1118,
+                            "diff": 881,
+                            "percent": 371.7299578059072
+                        },
+                        {
+                            "tag": "kumacchi",
+                            "old": 103,
+                            "new": 476,
+                            "diff": 373,
+                            "percent": 362.1359223300971
+                        },
+                        {
+                            "tag": "qusouzu_mogari",
+                            "old": 82,
+                            "new": 372,
+                            "diff": 290,
+                            "percent": 353.6585365853659
+                        },
+                        {
+                            "tag": "futoshi_slim",
+                            "old": 58,
+                            "new": 253,
+                            "diff": 195,
+                            "percent": 336.2068965517241
+                        },
+                        {
+                            "tag": "mon_momu",
+                            "old": 111,
+                            "new": 474,
+                            "diff": 363,
+                            "percent": 327.02702702702703
+                        },
+                        {
+                            "tag": "surfacedxxc",
+                            "old": 121,
+                            "new": 497,
+                            "diff": 376,
+                            "percent": 310.74380165289256
+                        },
+                        {
+                            "tag": "houndeater",
+                            "old": 71,
+                            "new": 274,
+                            "diff": 203,
+                            "percent": 285.9154929577465
+                        },
+                        {
+                            "tag": "mani_(manidrawings)",
+                            "old": 77,
+                            "new": 280,
+                            "diff": 203,
+                            "percent": 263.6363636363636
+                        },
+                        {
+                            "tag": "takeez3",
+                            "old": 53,
+                            "new": 185,
+                            "diff": 132,
+                            "percent": 249.0566037735849
+                        },
+                        {
+                            "tag": "eextrovrt",
+                            "old": 64,
+                            "new": 220,
+                            "diff": 156,
+                            "percent": 243.75
+                        },
+                        {
+                            "tag": "lovelobten",
+                            "old": 71,
+                            "new": 235,
+                            "diff": 164,
+                            "percent": 230.98591549295776
+                        },
+                        {
+                            "tag": "mantan",
+                            "old": 67,
+                            "new": 221,
+                            "diff": 154,
+                            "percent": 229.8507462686567
+                        }
+                    ],
+                    "diff": [
+                        {
+                            "tag": "shiromochi_sakura",
+                            "old": 184,
+                            "new": 4070,
+                            "diff": 3886,
+                            "percent": 2111.9565217391305
+                        },
+                        {
+                            "tag": "huke",
+                            "old": 1814,
+                            "new": 2810,
+                            "diff": 996,
+                            "percent": 54.906284454244755
+                        },
+                        {
+                            "tag": "mitarashi_neko",
+                            "old": 1543,
+                            "new": 2481,
+                            "diff": 938,
+                            "percent": 60.790667530784184
+                        },
+                        {
+                            "tag": "happy_elements",
+                            "old": 237,
+                            "new": 1118,
+                            "diff": 881,
+                            "percent": 371.7299578059072
+                        },
+                        {
+                            "tag": "decrilus",
+                            "old": 76,
+                            "new": 934,
+                            "diff": 858,
+                            "percent": 1128.9473684210525
+                        },
+                        {
+                            "tag": "maru_(marg0613)",
+                            "old": 1429,
+                            "new": 2270,
+                            "diff": 841,
+                            "percent": 58.85234429671099
+                        },
+                        {
+                            "tag": "hh",
+                            "old": 66,
+                            "new": 800,
+                            "diff": 734,
+                            "percent": 1112.121212121212
+                        },
+                        {
+                            "tag": "9rimson",
+                            "old": 125,
+                            "new": 806,
+                            "diff": 681,
+                            "percent": 544.8000000000001
+                        },
+                        {
+                            "tag": "ma_rukan",
+                            "old": 1042,
+                            "new": 1626,
+                            "diff": 584,
+                            "percent": 56.046065259117086
+                        },
+                        {
+                            "tag": "tsubobot",
+                            "old": 631,
+                            "new": 1182,
+                            "diff": 551,
+                            "percent": 87.3217115689382
+                        },
+                        {
+                            "tag": "poch4n",
+                            "old": 316,
+                            "new": 817,
+                            "diff": 501,
+                            "percent": 158.54430379746836
+                        },
+                        {
+                            "tag": "rizu_(rizunm)",
+                            "old": 305,
+                            "new": 802,
+                            "diff": 497,
+                            "percent": 162.95081967213113
+                        },
+                        {
+                            "tag": "glassy0302",
+                            "old": 112,
+                            "new": 609,
+                            "diff": 497,
+                            "percent": 443.75
+                        },
+                        {
+                            "tag": "colorful_palette",
+                            "old": 2098,
+                            "new": 2525,
+                            "diff": 427,
+                            "percent": 20.352716873212586
+                        },
+                        {
+                            "tag": "saitou_natsuki",
+                            "old": 985,
+                            "new": 1390,
+                            "diff": 405,
+                            "percent": 41.11675126903553
+                        },
+                        {
+                            "tag": "surfacedxxc",
+                            "old": 121,
+                            "new": 497,
+                            "diff": 376,
+                            "percent": 310.74380165289256
+                        },
+                        {
+                            "tag": "kumacchi",
+                            "old": 103,
+                            "new": 476,
+                            "diff": 373,
+                            "percent": 362.1359223300971
+                        },
+                        {
+                            "tag": "mon_momu",
+                            "old": 111,
+                            "new": 474,
+                            "diff": 363,
+                            "percent": 327.02702702702703
+                        },
+                        {
+                            "tag": "akino_ell",
+                            "old": 402,
+                            "new": 758,
+                            "diff": 356,
+                            "percent": 88.55721393034825
+                        },
+                        {
+                            "tag": "9ml",
+                            "old": 57,
+                            "new": 396,
+                            "diff": 339,
+                            "percent": 594.7368421052632
+                        }
+                    ]
+                },
+                "series": {
+                    "percent": [
+                        {
+                            "tag": "koi_suru_kokoro_to_mahou_no_kotoba",
+                            "old": 94,
+                            "new": 3978,
+                            "diff": 3884,
+                            "percent": 4131.914893617021
+                        },
+                        {
+                            "tag": "pragmata",
+                            "old": 50,
+                            "new": 635,
+                            "diff": 585,
+                            "percent": 1170.0
+                        },
+                        {
+                            "tag": "neverness_to_everness",
+                            "old": 71,
+                            "new": 779,
+                            "diff": 708,
+                            "percent": 997.1830985915492
+                        },
+                        {
+                            "tag": "kamiina_botan_yoeru_sugata_wa_yuri_no_hana",
+                            "old": 71,
+                            "new": 680,
+                            "diff": 609,
+                            "percent": 857.7464788732394
+                        },
+                        {
+                            "tag": "helios_rising_heroes",
+                            "old": 132,
+                            "new": 1076,
+                            "diff": 944,
+                            "percent": 715.1515151515151
+                        },
+                        {
+                            "tag": "project_tokyo_dolls",
+                            "old": 247,
+                            "new": 1782,
+                            "diff": 1535,
+                            "percent": 621.4574898785426
+                        },
+                        {
+                            "tag": "slay_the_spire_2",
+                            "old": 74,
+                            "new": 355,
+                            "diff": 281,
+                            "percent": 379.72972972972974
+                        },
+                        {
+                            "tag": "hatsune_miku_graphy_collection",
+                            "old": 101,
+                            "new": 449,
+                            "diff": 348,
+                            "percent": 344.55445544554453
+                        },
+                        {
+                            "tag": "bang_dream!_our_notes",
+                            "old": 82,
+                            "new": 277,
+                            "diff": 195,
+                            "percent": 237.80487804878047
+                        },
+                        {
+                            "tag": "honoo_no_haramase_tenkousei",
+                            "old": 88,
+                            "new": 293,
+                            "diff": 205,
+                            "percent": 232.95454545454547
+                        },
+                        {
+                            "tag": "project_hail_mary",
+                            "old": 112,
+                            "new": 370,
+                            "diff": 258,
+                            "percent": 230.35714285714283
+                        },
+                        {
+                            "tag": "slay_the_spire",
+                            "old": 206,
+                            "new": 624,
+                            "diff": 418,
+                            "percent": 202.9126213592233
+                        },
+                        {
+                            "tag": "boku_no_himitsu_taiken",
+                            "old": 76,
+                            "new": 229,
+                            "diff": 153,
+                            "percent": 201.3157894736842
+                        },
+                        {
+                            "tag": "hara_hara!!",
+                            "old": 77,
+                            "new": 227,
+                            "diff": 150,
+                            "percent": 194.80519480519482
+                        },
+                        {
+                            "tag": "daredevil_(series)",
+                            "old": 70,
+                            "new": 202,
+                            "diff": 132,
+                            "percent": 188.57142857142856
+                        },
+                        {
+                            "tag": "tomodachi_life:_living_the_dream",
+                            "old": 81,
+                            "new": 233,
+                            "diff": 152,
+                            "percent": 187.6543209876543
+                        },
+                        {
+                            "tag": "skoshism",
+                            "old": 162,
+                            "new": 443,
+                            "diff": 281,
+                            "percent": 173.45679012345678
+                        },
+                        {
+                            "tag": "searching_for_a_world_that_doesn't_exist",
+                            "old": 87,
+                            "new": 221,
+                            "diff": 134,
+                            "percent": 154.02298850574712
+                        },
+                        {
+                            "tag": "tomodachi_life",
+                            "old": 112,
+                            "new": 280,
+                            "diff": 168,
+                            "percent": 150.0
+                        },
+                        {
+                            "tag": "ryoujoku_gakuen",
+                            "old": 180,
+                            "new": 421,
+                            "diff": 241,
+                            "percent": 133.88888888888889
+                        }
+                    ],
+                    "diff": [
+                        {
+                            "tag": "original",
+                            "old": 1455063,
+                            "new": 1493542,
+                            "diff": 38479,
+                            "percent": 2.6444903072925365
+                        },
+                        {
+                            "tag": "touhou",
+                            "old": 1032742,
+                            "new": 1051809,
+                            "diff": 19067,
+                            "percent": 1.8462500798844241
+                        },
+                        {
+                            "tag": "blue_archive",
+                            "old": 390671,
+                            "new": 409427,
+                            "diff": 18756,
+                            "percent": 4.800970637697705
+                        },
+                        {
+                            "tag": "umamusume",
+                            "old": 194405,
+                            "new": 206721,
+                            "diff": 12316,
+                            "percent": 6.335228003394974
+                        },
+                        {
+                            "tag": "pokemon",
+                            "old": 370127,
+                            "new": 382236,
+                            "diff": 12109,
+                            "percent": 3.2715797550570485
+                        },
+                        {
+                            "tag": "hololive",
+                            "old": 299529,
+                            "new": 310143,
+                            "diff": 10614,
+                            "percent": 3.5435633945294116
+                        },
+                        {
+                            "tag": "arknights",
+                            "old": 195745,
+                            "new": 205979,
+                            "diff": 10234,
+                            "percent": 5.22823060614575
+                        },
+                        {
+                            "tag": "zenless_zone_zero",
+                            "old": 81041,
+                            "new": 89345,
+                            "diff": 8304,
+                            "percent": 10.246665268197578
+                        },
+                        {
+                            "tag": "honkai_(series)",
+                            "old": 167532,
+                            "new": 175074,
+                            "diff": 7542,
+                            "percent": 4.501826516725163
+                        },
+                        {
+                            "tag": "genshin_impact",
+                            "old": 288430,
+                            "new": 295581,
+                            "diff": 7151,
+                            "percent": 2.479284401761259
+                        },
+                        {
+                            "tag": "fate_(series)",
+                            "old": 387324,
+                            "new": 393549,
+                            "diff": 6225,
+                            "percent": 1.6071815844099513
+                        },
+                        {
+                            "tag": "honkai:_star_rail",
+                            "old": 117478,
+                            "new": 123371,
+                            "diff": 5893,
+                            "percent": 5.016258363268016
+                        },
+                        {
+                            "tag": "kantai_collection",
+                            "old": 529951,
+                            "new": 535694,
+                            "diff": 5743,
+                            "percent": 1.0836850954144817
+                        },
+                        {
+                            "tag": "indie_virtual_youtuber",
+                            "old": 71724,
+                            "new": 77079,
+                            "diff": 5355,
+                            "percent": 7.466120127154091
+                        },
+                        {
+                            "tag": "idolmaster",
+                            "old": 270149,
+                            "new": 275488,
+                            "diff": 5339,
+                            "percent": 1.976316773336196
+                        },
+                        {
+                            "tag": "hololive_english",
+                            "old": 101783,
+                            "new": 107083,
+                            "diff": 5300,
+                            "percent": 5.207156401363686
+                        },
+                        {
+                            "tag": "vocaloid",
+                            "old": 192931,
+                            "new": 197989,
+                            "diff": 5058,
+                            "percent": 2.6216626669638368
+                        },
+                        {
+                            "tag": "fate/grand_order",
+                            "old": 289227,
+                            "new": 293892,
+                            "diff": 4665,
+                            "percent": 1.6129199556058045
+                        },
+                        {
+                            "tag": "wuthering_waves",
+                            "old": 42204,
+                            "new": 46668,
+                            "diff": 4464,
+                            "percent": 10.577196474267842
+                        },
+                        {
+                            "tag": "koi_suru_kokoro_to_mahou_no_kotoba",
+                            "old": 94,
+                            "new": 3978,
+                            "diff": 3884,
+                            "percent": 4131.914893617021
+                        }
+                    ]
+                },
+                "character": {
+                    "percent": [
+                        {
+                            "tag": "diana_(pragmata)",
+                            "old": 50,
+                            "new": 613,
+                            "diff": 563,
+                            "percent": 1126.0
+                        },
+                        {
+                            "tag": "kuraishi_ringo_(glassy0302)",
+                            "old": 70,
+                            "new": 542,
+                            "diff": 472,
+                            "percent": 674.2857142857143
+                        },
+                        {
+                            "tag": "zhuang_fangyi_(arknights)",
+                            "old": 125,
+                            "new": 754,
+                            "diff": 629,
+                            "percent": 503.2
+                        },
+                        {
+                            "tag": "promeia_(zenless_zone_zero)",
+                            "old": 151,
+                            "new": 778,
+                            "diff": 627,
+                            "percent": 415.2317880794702
+                        },
+                        {
+                            "tag": "hiyuki_(wuthering_waves)",
+                            "old": 217,
+                            "new": 1085,
+                            "diff": 868,
+                            "percent": 400.0
+                        },
+                        {
+                            "tag": "sakura_(project_tokyo_dolls)",
+                            "old": 56,
+                            "new": 244,
+                            "diff": 188,
+                            "percent": 335.7142857142857
+                        },
+                        {
+                            "tag": "li_zeyan",
+                            "old": 66,
+                            "new": 286,
+                            "diff": 220,
+                            "percent": 333.33333333333337
+                        },
+                        {
+                            "tag": "lohen_(genshin_impact)",
+                            "old": 247,
+                            "new": 1051,
+                            "diff": 804,
+                            "percent": 325.50607287449395
+                        },
+                        {
+                            "tag": "toona",
+                            "old": 69,
+                            "new": 279,
+                            "diff": 210,
+                            "percent": 304.34782608695656
+                        },
+                        {
+                            "tag": "denia_(wuthering_waves)",
+                            "old": 271,
+                            "new": 1060,
+                            "diff": 789,
+                            "percent": 291.1439114391144
+                        },
+                        {
+                            "tag": "lu_chen",
+                            "old": 58,
+                            "new": 209,
+                            "diff": 151,
+                            "percent": 260.3448275862069
+                        },
+                        {
+                            "tag": "silver_wolf_(lv.999)_(honkai:_star_rail)",
+                            "old": 185,
+                            "new": 665,
+                            "diff": 480,
+                            "percent": 259.4594594594595
+                        },
+                        {
+                            "tag": "yuki_(project_tokyo_dolls)",
+                            "old": 71,
+                            "new": 255,
+                            "diff": 184,
+                            "percent": 259.1549295774648
+                        },
+                        {
+                            "tag": "francois_prelati_(fate)",
+                            "old": 55,
+                            "new": 187,
+                            "diff": 132,
+                            "percent": 240.0
+                        },
+                        {
+                            "tag": "kano_(utaite)",
+                            "old": 61,
+                            "new": 206,
+                            "diff": 145,
+                            "percent": 237.7049180327869
+                        },
+                        {
+                            "tag": "ryland_grace",
+                            "old": 97,
+                            "new": 320,
+                            "diff": 223,
+                            "percent": 229.89690721649484
+                        },
+                        {
+                            "tag": "linnea_(genshin_impact)",
+                            "old": 157,
+                            "new": 482,
+                            "diff": 325,
+                            "percent": 207.0063694267516
+                        },
+                        {
+                            "tag": "the_silent_(slay_the_spire)",
+                            "old": 95,
+                            "new": 274,
+                            "diff": 179,
+                            "percent": 188.42105263157896
+                        },
+                        {
+                            "tag": "robo_frostor",
+                            "old": 149,
+                            "new": 428,
+                            "diff": 279,
+                            "percent": 187.248322147651
+                        },
+                        {
+                            "tag": "amane_yuki",
+                            "old": 88,
+                            "new": 247,
+                            "diff": 159,
+                            "percent": 180.6818181818182
+                        }
+                    ],
+                    "diff": [
+                        {
+                            "tag": "hatsune_miku",
+                            "old": 133293,
+                            "new": 137277,
+                            "diff": 3984,
+                            "percent": 2.98890414350341
+                        },
+                        {
+                            "tag": "saotome_ranma",
+                            "old": 2553,
+                            "new": 6480,
+                            "diff": 3927,
+                            "percent": 153.81903642773207
+                        },
+                        {
+                            "tag": "sakayori_iroha",
+                            "old": 4405,
+                            "new": 6789,
+                            "diff": 2384,
+                            "percent": 54.12031782065835
+                        },
+                        {
+                            "tag": "hakurei_reimu",
+                            "old": 92966,
+                            "new": 95228,
+                            "diff": 2262,
+                            "percent": 2.433147602349246
+                        },
+                        {
+                            "tag": "kaguya_(cho_kaguya-hime!)",
+                            "old": 3298,
+                            "new": 5071,
+                            "diff": 1773,
+                            "percent": 53.75985445724682
+                        },
+                        {
+                            "tag": "kirisame_marisa",
+                            "old": 81690,
+                            "new": 83346,
+                            "diff": 1656,
+                            "percent": 2.027175908923981
+                        },
+                        {
+                            "tag": "leon_s._kennedy",
+                            "old": 2725,
+                            "new": 4356,
+                            "diff": 1631,
+                            "percent": 59.85321100917431
+                        },
+                        {
+                            "tag": "sensei_(blue_archive)",
+                            "old": 33515,
+                            "new": 35109,
+                            "diff": 1594,
+                            "percent": 4.756079367447412
+                        },
+                        {
+                            "tag": "runami_yachiyo",
+                            "old": 2887,
+                            "new": 4472,
+                            "diff": 1585,
+                            "percent": 54.90128160720471
+                        },
+                        {
+                            "tag": "maribel_hearn",
+                            "old": 11797,
+                            "new": 13144,
+                            "diff": 1347,
+                            "percent": 11.418157158599644
+                        },
+                        {
+                            "tag": "komeiji_koishi",
+                            "old": 41795,
+                            "new": 43045,
+                            "diff": 1250,
+                            "percent": 2.9907883718148103
+                        },
+                        {
+                            "tag": "flandre_scarlet",
+                            "old": 58933,
+                            "new": 60127,
+                            "diff": 1194,
+                            "percent": 2.0260295589907185
+                        },
+                        {
+                            "tag": "usami_renko",
+                            "old": 12322,
+                            "new": 13511,
+                            "diff": 1189,
+                            "percent": 9.649407563707191
+                        },
+                        {
+                            "tag": "scaramouche_(genshin_impact)",
+                            "old": 23369,
+                            "new": 24476,
+                            "diff": 1107,
+                            "percent": 4.737044802944071
+                        },
+                        {
+                            "tag": "kasane_teto",
+                            "old": 14843,
+                            "new": 15877,
+                            "diff": 1034,
+                            "percent": 6.966246715623527
+                        },
+                        {
+                            "tag": "remilia_scarlet",
+                            "old": 58888,
+                            "new": 59850,
+                            "diff": 962,
+                            "percent": 1.6336095639179458
+                        },
+                        {
+                            "tag": "ouro_kronii",
+                            "old": 12377,
+                            "new": 13329,
+                            "diff": 952,
+                            "percent": 7.691686192130565
+                        },
+                        {
+                            "tag": "trailblazer_(honkai:_star_rail)",
+                            "old": 18622,
+                            "new": 19516,
+                            "diff": 894,
+                            "percent": 4.80077327891741
+                        },
+                        {
+                            "tag": "columbina_(genshin_impact)",
+                            "old": 6187,
+                            "new": 7065,
+                            "diff": 878,
+                            "percent": 14.191045741069985
+                        },
+                        {
+                            "tag": "hiyuki_(wuthering_waves)",
+                            "old": 217,
+                            "new": 1085,
+                            "diff": 868,
+                            "percent": 400.0
+                        }
+                    ]
+                },
+                "all": {
+                    "percent": [
+                        {
+                            "tag": "koi_suru_kokoro_to_mahou_no_kotoba",
+                            "old": 94,
+                            "new": 3978,
+                            "diff": 3884,
+                            "percent": 4131.914893617021
+                        },
+                        {
+                            "tag": "shiromochi_sakura",
+                            "old": 184,
+                            "new": 4070,
+                            "diff": 3886,
+                            "percent": 2111.9565217391305
+                        },
+                        {
+                            "tag": "holding_unworn_jacket",
+                            "old": 179,
+                            "new": 3092,
+                            "diff": 2913,
+                            "percent": 1627.3743016759777
+                        },
+                        {
+                            "tag": "pragmata",
+                            "old": 50,
+                            "new": 635,
+                            "diff": 585,
+                            "percent": 1170.0
+                        },
+                        {
+                            "tag": "decrilus",
+                            "old": 76,
+                            "new": 934,
+                            "diff": 858,
+                            "percent": 1128.9473684210525
+                        },
+                        {
+                            "tag": "diana_(pragmata)",
+                            "old": 50,
+                            "new": 613,
+                            "diff": 563,
+                            "percent": 1126.0
+                        },
+                        {
+                            "tag": "hh",
+                            "old": 66,
+                            "new": 800,
+                            "diff": 734,
+                            "percent": 1112.121212121212
+                        },
+                        {
+                            "tag": "holding_another's_horns",
+                            "old": 124,
+                            "new": 1456,
+                            "diff": 1332,
+                            "percent": 1074.1935483870968
+                        },
+                        {
+                            "tag": "neverness_to_everness",
+                            "old": 71,
+                            "new": 779,
+                            "diff": 708,
+                            "percent": 997.1830985915492
+                        },
+                        {
+                            "tag": "kamiina_botan_yoeru_sugata_wa_yuri_no_hana",
+                            "old": 71,
+                            "new": 680,
+                            "diff": 609,
+                            "percent": 857.7464788732394
+                        },
+                        {
+                            "tag": "helios_rising_heroes",
+                            "old": 132,
+                            "new": 1076,
+                            "diff": 944,
+                            "percent": 715.1515151515151
+                        },
+                        {
+                            "tag": "gauze_on_face",
+                            "old": 332,
+                            "new": 2594,
+                            "diff": 2262,
+                            "percent": 681.3253012048193
+                        },
+                        {
+                            "tag": "kuraishi_ringo_(glassy0302)",
+                            "old": 70,
+                            "new": 542,
+                            "diff": 472,
+                            "percent": 674.2857142857143
+                        },
+                        {
+                            "tag": "pavilion",
+                            "old": 82,
+                            "new": 600,
+                            "diff": 518,
+                            "percent": 631.7073170731708
+                        },
+                        {
+                            "tag": "integrity_knight_armor",
+                            "old": 52,
+                            "new": 380,
+                            "diff": 328,
+                            "percent": 630.7692307692307
+                        },
+                        {
+                            "tag": "project_tokyo_dolls",
+                            "old": 247,
+                            "new": 1782,
+                            "diff": 1535,
+                            "percent": 621.4574898785426
+                        },
+                        {
+                            "tag": "9ml",
+                            "old": 57,
+                            "new": 396,
+                            "diff": 339,
+                            "percent": 594.7368421052632
+                        },
+                        {
+                            "tag": "red_feet",
+                            "old": 107,
+                            "new": 701,
+                            "diff": 594,
+                            "percent": 555.1401869158879
+                        },
+                        {
+                            "tag": "9rimson",
+                            "old": 125,
+                            "new": 806,
+                            "diff": 681,
+                            "percent": 544.8000000000001
+                        },
+                        {
+                            "tag": "zhuang_fangyi_(arknights)",
+                            "old": 125,
+                            "new": 754,
+                            "diff": 629,
+                            "percent": 503.2
+                        }
+                    ],
+                    "diff": [
+                        {
+                            "tag": "highres",
+                            "old": 7270986,
+                            "new": 7539405,
+                            "diff": 268419,
+                            "percent": 3.691645122133367
+                        },
+                        {
+                            "tag": "1girl",
+                            "old": 7668487,
+                            "new": 7900170,
+                            "diff": 231683,
+                            "percent": 3.0212348276785237
+                        },
+                        {
+                            "tag": "solo",
+                            "old": 6408074,
+                            "new": 6615377,
+                            "diff": 207303,
+                            "percent": 3.2350281847556692
+                        },
+                        {
+                            "tag": "long_hair",
+                            "old": 5644391,
+                            "new": 5816925,
+                            "diff": 172534,
+                            "percent": 3.05673366710421
+                        },
+                        {
+                            "tag": "looking_at_viewer",
+                            "old": 4427968,
+                            "new": 4576017,
+                            "diff": 148049,
+                            "percent": 3.343497513983841
+                        },
+                        {
+                            "tag": "breasts",
+                            "old": 4503309,
+                            "new": 4648472,
+                            "diff": 145163,
+                            "percent": 3.2234741164774614
+                        },
+                        {
+                            "tag": "commentary_request",
+                            "old": 5807967,
+                            "new": 5945744,
+                            "diff": 137777,
+                            "percent": 2.3722070046196886
+                        },
+                        {
+                            "tag": "commentary",
+                            "old": 2751928,
+                            "new": 2885174,
+                            "diff": 133246,
+                            "percent": 4.8419144686924955
+                        },
+                        {
+                            "tag": "smile",
+                            "old": 3782573,
+                            "new": 3901620,
+                            "diff": 119047,
+                            "percent": 3.147249240133634
+                        },
+                        {
+                            "tag": "absurdres",
+                            "old": 2608748,
+                            "new": 2723228,
+                            "diff": 114480,
+                            "percent": 4.388311941207046
+                        },
+                        {
+                            "tag": "blush",
+                            "old": 3743610,
+                            "new": 3855337,
+                            "diff": 111727,
+                            "percent": 2.984472207307919
+                        },
+                        {
+                            "tag": "open_mouth",
+                            "old": 3141577,
+                            "new": 3248907,
+                            "diff": 107330,
+                            "percent": 3.4164370314654073
+                        },
+                        {
+                            "tag": "shirt",
+                            "old": 2597288,
+                            "new": 2702261,
+                            "diff": 104973,
+                            "percent": 4.0416388171046105
+                        },
+                        {
+                            "tag": "simple_background",
+                            "old": 2537794,
+                            "new": 2635276,
+                            "diff": 97482,
+                            "percent": 3.8412101218617427
+                        },
+                        {
+                            "tag": ":d",
+                            "old": 707997,
+                            "new": 803780,
+                            "diff": 95783,
+                            "percent": 13.528729641509779
+                        },
+                        {
+                            "tag": "white_background",
+                            "old": 2086983,
+                            "new": 2164595,
+                            "diff": 77612,
+                            "percent": 3.718861150282489
+                        },
+                        {
+                            "tag": "short_hair",
+                            "old": 2877697,
+                            "new": 2953866,
+                            "diff": 76169,
+                            "percent": 2.646873524210506
+                        },
+                        {
+                            "tag": "closed_mouth",
+                            "old": 1725211,
+                            "new": 1798887,
+                            "diff": 73676,
+                            "percent": 4.270550095031854
+                        },
+                        {
+                            "tag": "holding",
+                            "old": 1957671,
+                            "new": 2031292,
+                            "diff": 73621,
+                            "percent": 3.760642109935735
+                        },
+                        {
+                            "tag": "long_sleeves",
+                            "old": 2126946,
+                            "new": 2197752,
+                            "diff": 70806,
+                            "percent": 3.3289984795100582
+                        }
+                    ]
+                },
+                "touhou": {
+                    "percent": [
+                        {
+                            "tag": "maribel_hearn",
+                            "old": 11797,
+                            "new": 13144,
+                            "diff": 1347,
+                            "percent": 11.418157158599644
+                        },
+                        {
+                            "tag": "usami_renko",
+                            "old": 12322,
+                            "new": 13511,
+                            "diff": 1189,
+                            "percent": 9.649407563707191
+                        },
+                        {
+                            "tag": "miyadeguchi_mizuchi",
+                            "old": 520,
+                            "new": 556,
+                            "diff": 36,
+                            "percent": 6.923076923076923
+                        },
+                        {
+                            "tag": "nippaku_zanmu",
+                            "old": 787,
+                            "new": 838,
+                            "diff": 51,
+                            "percent": 6.480304955527319
+                        },
+                        {
+                            "tag": "tenkyuu_chimata",
+                            "old": 1754,
+                            "new": 1845,
+                            "diff": 91,
+                            "percent": 5.188141391106043
+                        },
+                        {
+                            "tag": "kudamaki_tsukasa",
+                            "old": 3163,
+                            "new": 3316,
+                            "diff": 153,
+                            "percent": 4.837179892507113
+                        },
+                        {
+                            "tag": "tamatsukuri_misumaru",
+                            "old": 488,
+                            "new": 509,
+                            "diff": 21,
+                            "percent": 4.30327868852459
+                        },
+                        {
+                            "tag": "yomotsu_hisami",
+                            "old": 1057,
+                            "new": 1101,
+                            "diff": 44,
+                            "percent": 4.162724692526018
+                        },
+                        {
+                            "tag": "joutouguu_mayumi",
+                            "old": 1861,
+                            "new": 1934,
+                            "diff": 73,
+                            "percent": 3.922622246104245
+                        },
+                        {
+                            "tag": "ebisu_eika",
+                            "old": 643,
+                            "new": 668,
+                            "diff": 25,
+                            "percent": 3.8880248833592534
+                        },
+                        {
+                            "tag": "haniyasushin_keiki",
+                            "old": 2205,
+                            "new": 2290,
+                            "diff": 85,
+                            "percent": 3.8548752834467117
+                        },
+                        {
+                            "tag": "watatsuki_no_toyohime",
+                            "old": 1651,
+                            "new": 1712,
+                            "diff": 61,
+                            "percent": 3.6947304663840095
+                        },
+                        {
+                            "tag": "tenkajin_chiyari",
+                            "old": 900,
+                            "new": 932,
+                            "diff": 32,
+                            "percent": 3.5555555555555554
+                        },
+                        {
+                            "tag": "yamashiro_takane",
+                            "old": 746,
+                            "new": 771,
+                            "diff": 25,
+                            "percent": 3.351206434316354
+                        },
+                        {
+                            "tag": "matara_okina",
+                            "old": 3351,
+                            "new": 3461,
+                            "diff": 110,
+                            "percent": 3.282602208296031
+                        },
+                        {
+                            "tag": "himemushi_momoyo",
+                            "old": 1219,
+                            "new": 1257,
+                            "diff": 38,
+                            "percent": 3.1173092698933553
+                        },
+                        {
+                            "tag": "sariel_(touhou)",
+                            "old": 582,
+                            "new": 600,
+                            "diff": 18,
+                            "percent": 3.0927835051546393
+                        },
+                        {
+                            "tag": "orange_(touhou)",
+                            "old": 293,
+                            "new": 302,
+                            "diff": 9,
+                            "percent": 3.0716723549488054
+                        },
+                        {
+                            "tag": "rika_(touhou)",
+                            "old": 395,
+                            "new": 407,
+                            "diff": 12,
+                            "percent": 3.0379746835443036
+                        },
+                        {
+                            "tag": "toutetsu_yuuma",
+                            "old": 2531,
+                            "new": 2607,
+                            "diff": 76,
+                            "percent": 3.00276570525484
+                        }
+                    ],
+                    "diff": [
+                        {
+                            "tag": "hakurei_reimu",
+                            "old": 92966,
+                            "new": 95228,
+                            "diff": 2262,
+                            "percent": 2.433147602349246
+                        },
+                        {
+                            "tag": "kirisame_marisa",
+                            "old": 81690,
+                            "new": 83346,
+                            "diff": 1656,
+                            "percent": 2.027175908923981
+                        },
+                        {
+                            "tag": "maribel_hearn",
+                            "old": 11797,
+                            "new": 13144,
+                            "diff": 1347,
+                            "percent": 11.418157158599644
+                        },
+                        {
+                            "tag": "komeiji_koishi",
+                            "old": 41795,
+                            "new": 43045,
+                            "diff": 1250,
+                            "percent": 2.9907883718148103
+                        },
+                        {
+                            "tag": "flandre_scarlet",
+                            "old": 58933,
+                            "new": 60127,
+                            "diff": 1194,
+                            "percent": 2.0260295589907185
+                        },
+                        {
+                            "tag": "usami_renko",
+                            "old": 12322,
+                            "new": 13511,
+                            "diff": 1189,
+                            "percent": 9.649407563707191
+                        },
+                        {
+                            "tag": "remilia_scarlet",
+                            "old": 58888,
+                            "new": 59850,
+                            "diff": 962,
+                            "percent": 1.6336095639179458
+                        },
+                        {
+                            "tag": "izayoi_sakuya",
+                            "old": 50914,
+                            "new": 51634,
+                            "diff": 720,
+                            "percent": 1.4141493498841184
+                        },
+                        {
+                            "tag": "yakumo_yukari",
+                            "old": 36494,
+                            "new": 37077,
+                            "diff": 583,
+                            "percent": 1.5975228804735027
+                        },
+                        {
+                            "tag": "konpaku_youmu",
+                            "old": 39191,
+                            "new": 39758,
+                            "diff": 567,
+                            "percent": 1.4467607358832384
+                        },
+                        {
+                            "tag": "komeiji_satori",
+                            "old": 29450,
+                            "new": 29976,
+                            "diff": 526,
+                            "percent": 1.7860780984719864
+                        },
+                        {
+                            "tag": "cirno",
+                            "old": 38652,
+                            "new": 39171,
+                            "diff": 519,
+                            "percent": 1.342750698540826
+                        },
+                        {
+                            "tag": "kochiya_sanae",
+                            "old": 39446,
+                            "new": 39951,
+                            "diff": 505,
+                            "percent": 1.2802312021497744
+                        },
+                        {
+                            "tag": "alice_margatroid",
+                            "old": 38342,
+                            "new": 38815,
+                            "diff": 473,
+                            "percent": 1.233634134891242
+                        },
+                        {
+                            "tag": "patchouli_knowledge",
+                            "old": 37084,
+                            "new": 37537,
+                            "diff": 453,
+                            "percent": 1.2215510732391328
+                        },
+                        {
+                            "tag": "reisen_udongein_inaba",
+                            "old": 29871,
+                            "new": 30303,
+                            "diff": 432,
+                            "percent": 1.4462187405845135
+                        },
+                        {
+                            "tag": "shameimaru_aya",
+                            "old": 32827,
+                            "new": 33220,
+                            "diff": 393,
+                            "percent": 1.1971852438541444
+                        },
+                        {
+                            "tag": "fujiwara_no_mokou",
+                            "old": 29492,
+                            "new": 29878,
+                            "diff": 386,
+                            "percent": 1.3088295130882952
+                        },
+                        {
+                            "tag": "saigyouji_yuyuko",
+                            "old": 26880,
+                            "new": 27263,
+                            "diff": 383,
+                            "percent": 1.4248511904761905
+                        },
+                        {
+                            "tag": "houraisan_kaguya",
+                            "old": 17133,
+                            "new": 17428,
+                            "diff": 295,
+                            "percent": 1.7218233817778557
+                        }
+                    ]
+                }
+            }
+        },
+        {
             "date": "2026-04-07 to 2026-05-22",
             "id": "danbooru-2026-05-22.csv",
             "stats": {
